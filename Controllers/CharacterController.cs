@@ -31,6 +31,17 @@ namespace dotnet_rpg.Controllers
             return Ok(await _characterService.GetCharacterById(id));
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Character>>> Delete(int id){
+            var response = await _characterService.DeleteCharacter(id);
+
+            if(response.Data == null){
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult<List<Character>>> AddCharacter(AddCharacterDto input)
         {
